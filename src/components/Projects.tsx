@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 
 const projects = [
   {
@@ -8,7 +8,7 @@ const projects = [
     category: "Дизайн дома",
     location: "Челябинск",
     year: "2024",
-    image: "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/files/e5b6f499-3b77-4512-951b-a669b6bab27c.jpg",
+    images: ["https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/files/e5b6f499-3b77-4512-951b-a669b6bab27c.jpg"],
   },
   {
     id: 2,
@@ -16,7 +16,7 @@ const projects = [
     category: "Таунхаус",
     location: "Челябинск",
     year: "2024",
-    image: "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/files/d32ec7a1-a7cd-413e-9bda-e0c0c3ddb70c.jpg",
+    images: ["https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/files/d32ec7a1-a7cd-413e-9bda-e0c0c3ddb70c.jpg"],
   },
   {
     id: 3,
@@ -24,7 +24,13 @@ const projects = [
     category: "Дизайн квартиры",
     location: "Челябинск",
     year: "2023",
-    image: "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/files/f0eeed9f-d674-4e18-97d8-cf5f5764565e.jpg",
+    images: [
+      "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/bucket/84ec0ec2-45c0-4c3a-876d-63cc0551550e.jpeg",
+      "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/bucket/2355b408-bcac-4b2d-a228-c56767df8703.jpeg",
+      "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/bucket/682b1e31-b142-4861-87a9-2a9eb71c3a46.jpeg",
+      "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/bucket/0d775741-1b78-471a-8199-7c61ea14b3a4.jpeg",
+      "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/bucket/7819a37d-ed55-45c2-a6a3-ce63441d52cb.jpeg",
+    ],
   },
   {
     id: 4,
@@ -32,14 +38,27 @@ const projects = [
     category: "Хомстейджинг",
     location: "Челябинск",
     year: "2023",
-    image: "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/files/73538bc8-da0d-4ffb-9517-8237298ecc2d.jpg",
+    images: ["https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/files/73538bc8-da0d-4ffb-9517-8237298ecc2d.jpg"],
   },
 ]
 
 export function Projects() {
   const [hoveredId, setHoveredId] = useState<number | null>(null)
   const [revealedImages, setRevealedImages] = useState<Set<number>>(new Set())
+  const [activeSlide, setActiveSlide] = useState<Record<number, number>>({})
   const imageRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  const getSlide = (id: number) => activeSlide[id] ?? 0
+
+  const prevSlide = (e: React.MouseEvent, id: number, total: number) => {
+    e.stopPropagation()
+    setActiveSlide((prev) => ({ ...prev, [id]: (getSlide(id) - 1 + total) % total }))
+  }
+
+  const nextSlide = (e: React.MouseEvent, id: number, total: number) => {
+    e.stopPropagation()
+    setActiveSlide((prev) => ({ ...prev, [id]: (getSlide(id) + 1) % total }))
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -90,12 +109,37 @@ export function Projects() {
             >
               <div ref={(el) => (imageRefs.current[index] = el)} className="relative overflow-hidden aspect-[4/3] mb-6">
                 <img
-                  src={project.image || "/placeholder.svg"}
+                  src={project.images[getSlide(project.id)] || "/placeholder.svg"}
                   alt={project.title}
                   className={`w-full h-full object-cover transition-transform duration-700 ${
                     hoveredId === project.id ? "scale-105" : "scale-100"
                   }`}
                 />
+                {project.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={(e) => prevSlide(e, project.id, project.images.length)}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-opacity opacity-0 group-hover:opacity-100"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={(e) => nextSlide(e, project.id, project.images.length)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-opacity opacity-0 group-hover:opacity-100"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                      {project.images.map((_, i) => (
+                        <button
+                          key={i}
+                          onClick={(e) => { e.stopPropagation(); setActiveSlide((prev) => ({ ...prev, [project.id]: i })) }}
+                          className={`w-1.5 h-1.5 rounded-full transition-all ${i === getSlide(project.id) ? "bg-white w-3" : "bg-white/50"}`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
                 <div
                   className="absolute inset-0 bg-primary origin-top"
                   style={{
