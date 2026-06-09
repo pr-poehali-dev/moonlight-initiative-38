@@ -43,7 +43,10 @@ const projects = [
     category: "Хомстейджинг",
     location: "Челябинск",
     year: "2023",
-    images: ["https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/files/73538bc8-da0d-4ffb-9517-8237298ecc2d.jpg"],
+    images: [
+      "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/bucket/739438b6-f693-4fd5-a8f4-d609a7f58ce0.jpeg",
+      "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/bucket/549da0bf-38ac-4d0c-918a-db6328201754.jpeg",
+    ],
   },
 ]
 
