@@ -4,7 +4,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
 const projects = [
   {
     id: 1,
-    title: "Загородный дом в скандинавском стиле",
+    title: "Загородный дом в стиле барнхаус",
     category: "Дизайн дома",
     location: "Челябинск",
     year: "2024",
@@ -20,7 +20,7 @@ const projects = [
   },
   {
     id: 3,
-    title: "Квартира в стиле лофт",
+    title: "Квартира в стиле контемпорари",
     category: "Дизайн квартиры",
     location: "Челябинск",
     year: "2023",
