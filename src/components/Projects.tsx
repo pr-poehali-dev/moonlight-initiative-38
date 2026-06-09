@@ -8,7 +8,12 @@ const projects = [
     category: "Дизайн дома",
     location: "Челябинск",
     year: "2024",
-    images: ["https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/files/e5b6f499-3b77-4512-951b-a669b6bab27c.jpg"],
+    images: [
+      "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/files/e5b6f499-3b77-4512-951b-a669b6bab27c.jpg",
+      "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/bucket/17e96905-0462-42b7-b80c-7fc43a39d00b.jpeg",
+      "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/bucket/aab11540-8133-42fa-8f16-bb0e08d8845f.jpeg",
+      "https://cdn.poehali.dev/projects/bdde0735-63d4-4ca0-bdab-4863e4a7453c/bucket/0fcbcf98-a498-449d-88d7-28a5e9b50ce6.jpeg",
+    ],
   },
   {
     id: 2,
