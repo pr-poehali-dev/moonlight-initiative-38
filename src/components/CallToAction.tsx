@@ -22,7 +22,7 @@ export function CallToAction() {
             </h2>
 
             <p className="text-primary-foreground/70 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
-              Расскажите о своём проекте — я отвечу в течение дня и предложу первые идеи. Каждый красивый интерьер начинается с одного разговора.
+              Расскажите о своём проекте — Оксана ответит в течение дня и предложит первые идеи. Каждый красивый интерьер начинается с одного разговора.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
